@@ -356,7 +356,6 @@ type Mutation {
       configuration: "postgresql_config"
     )
   insertChatbots(
-    created_at: DateTime!
     name: String!
     clerk_user_id: String!
   ): Chatbots

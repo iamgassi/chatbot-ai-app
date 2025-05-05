@@ -8,7 +8,7 @@ import {
 export const BASE_URL =
   process.env.NODE_ENV !== "development"
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-    : "http://localhost:8000";
+    : "http://localhost:3000";
 
 const httpLink = createHttpLink({
   uri: `${BASE_URL}/api/graphql`,
@@ -34,7 +34,5 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   defaultOptions,
 });
-
-console.log('client::', client);
 
 export default client;

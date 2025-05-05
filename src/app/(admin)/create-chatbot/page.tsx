@@ -13,30 +13,22 @@ const CreateChatbot = () => {
   const { user } = useUser();
   const [name, setName] = useState("");
   const router = useRouter()
-  const [createChatbot] = useMutation(CREATE_CHATBOT);
-  // const [createChatbot] = useMutation(
-  //   CREATE_CHATBOT,
-  //   {
-  //     variables: {
-  //       clerk_user_id: user?.id,
-  //       name,
-  //     },
-  //   }
-  // );
+  const [createChatbot] = useMutation(
+    CREATE_CHATBOT,
+    {
+      variables: {
+        clerk_user_id: user?.id,
+        name,
+      },
+    }
+  );
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      // const { data } = await createChatbot();
-      const { data } = await createChatbot({
-        variables: {
-          clerk_user_id: user?.id,
-          name,
-        },
-      });
+      const { data } = await createChatbot();
       setName('');
       router.push(`edit-chatbot/${data.insertChatbots.id}`)
-
     } catch (error) {
       console.log(error)
     }
