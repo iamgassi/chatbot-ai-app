@@ -10,7 +10,7 @@ const Avatar = ({seed, className = ''}: { seed: string; className?: string} ) =>
     <Image
         src={dataUrl}
         alt='User Avatar'
-        className={`${className} rounded-full animate-[spin_10s_linear_infinite]`}
+        className={`${className} rounded-full hover:animate-[spin_10s_linear_infinite] hover:scale-110 transition-all duration-300 ease-in-out`}
         width={100}
         height={100}
     />

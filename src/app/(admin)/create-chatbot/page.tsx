@@ -34,7 +34,13 @@ const CreateChatbot = () => {
     }
   }
 
-  if(!user) return null;
+  if(!user) {
+    return (
+      <div className="flex flex-col justify-center items-center bg-white p-10 rounded-md m-10">
+        <h1 className="text-xl lg:text-2xl font-semibold">Please log in first to create a chatbot</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col justify-center items-center bg-white p-10 rounded-md m-10 md:flex-row md:space-x-10">

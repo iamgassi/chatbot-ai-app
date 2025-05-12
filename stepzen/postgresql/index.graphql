@@ -155,6 +155,13 @@ type Query {
       table: "chatbots"
       configuration: "postgresql_config"
     )
+  chatbotsByUserId(clerk_user_id: String!): [Chatbots]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "chatbots"
+      configuration: "postgresql_config"
+    )
   chatbotsList: [Chatbots]
     @dbquery(
       type: "postgresql"
@@ -315,7 +322,6 @@ type Mutation {
       configuration: "postgresql_config"
     )
   insertChatbot_characteristics(
-    created_at: DateTime!
     content: String!
     chatbot_id: Int
   ): Chatbot_characteristics
@@ -367,9 +373,7 @@ type Mutation {
       configuration: "postgresql_config"
     )
   updateChatbots(
-    id: Int!
-    clerk_user_id: String
-    created_at: DateTime
+    id: Int!,
     name: String
   ): Chatbots
     @dbquery(
@@ -377,9 +381,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "chatbots" SET
-        "clerk_user_id" = COALESCE($2, "clerk_user_id"),
-        "created_at" = COALESCE($3, "created_at"),
-        "name" = COALESCE($4, "name")
+        "name" = COALESCE($2, "name")
       WHERE
         "id" = $1
       RETURNING *

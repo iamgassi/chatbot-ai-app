@@ -19,7 +19,7 @@ const Sidebar = () => {
         </li>
         <li className="flex-1">
           <Link
-            href="/view-chatbot"
+            href="/view-chatbots"
             className="hover:opacity-50 flex flex-col p-5 text-center lg:text-left lg:flex-row items-center gap-2 rounded-md bg-blue-500"
           >
             <PencilLineIcon className="w-6 h-6 lg:w-8 lg:h-8 " />
