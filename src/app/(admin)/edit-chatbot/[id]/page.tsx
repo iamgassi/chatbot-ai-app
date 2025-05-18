@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import Avatar from "@/components/Avatar";
 import { useMutation, useQuery } from "@apollo/client";
 import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "types/types";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { GET_CHATBOT_BY_ID } from "graphql/queries";
 import Characteristics from "@/components/Characteristics";
 import { ADD_CHARACTERISTIC, REMOVE_CHATBOT, UPDATE_CHATBOT_NAME } from "graphql/mutations";
@@ -94,14 +94,8 @@ const EditChatBot = () => {
     return <Loader type={1} />;
   }
 
-  if (!chatbotName) {
-    return (
-      <div className="sm:px-5 md:px-0 md:p-10">
-        <p className="text-lg font-bold">
-          There is no chatbot available with the provided ID
-        </p>
-      </div>
-    );
+  if (!data.chatbots) {
+    return redirect("/view-chatbots");
   }
 
   return (

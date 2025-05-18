@@ -83,7 +83,7 @@ export const GET_CHAT_SESSION_MESSAGES = gql`
                 created_at
                 sender
             }
-            Chatbots {
+            chatbots {
                 name
             }
         }
