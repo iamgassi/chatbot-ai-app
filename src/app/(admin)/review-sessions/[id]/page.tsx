@@ -8,12 +8,12 @@ import {
 
 export const dynamic = "force-dynamic";
 
-const ReviewSessionsById = async ({ params }: { params: { id: string } }) => {
+const ReviewSessionsById = async ({ params }: {params: Promise<{ id: string }>}) => {
   const { id } = await params;
   const {
     data: {
       chat_sessions: {
-        id: chatSessionId,
+        // id: chatSessionId,
         created_at,
         messages,
         chatbots: { name },

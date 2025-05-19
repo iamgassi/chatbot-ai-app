@@ -45,7 +45,7 @@ const ChatbotSessions = ({ chatbots }: { chatbots: Chatbot[] }) => {
                                     className="relative p-5 bg-blue-500 text-white rounded-md block"
                                 >
                                     <p className="text-lg font-bold">
-                                       {session.guests?.name || 'Anonymous'}
+                                       {session.guests.name || 'Anonymous'}
                                     </p>
                                     <p className="text-lg font-bold">
                                        {session.guests?.email || 'No email provided'}
