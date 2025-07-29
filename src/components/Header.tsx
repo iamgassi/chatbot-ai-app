@@ -14,7 +14,7 @@ const Header = () => {
         className="flex items-center text-4xl font-thin" 
         href={"/"}
       >
-        <Avatar/>
+        <Avatar seed="AI" />
         <div className="p-2 space-y-1">
             <h1>Assistly</h1>
             <h2 className="text-sm">Your customizable AI Chat Agent</h2>

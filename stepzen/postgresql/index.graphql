@@ -397,7 +397,7 @@ type Mutation {
       dml: DELETE
       configuration: "postgresql_config"
     )
-  insertGuests(email: String, name: String): Guests
+  insertGuests(created_at: DateTime!, email: String, name: String): Guests
     @dbquery(
       type: "postgresql"
       schema: "public"

@@ -26,7 +26,7 @@ const Loader1 = () => (
 
 const Loader2 = () => (
   <div className="flex items-center justify-center">
-    <Avatar className="animate-spin h-40 w-40" />
+    <Avatar className="animate-spin" seed="loader" />
   </div>
 );
 
