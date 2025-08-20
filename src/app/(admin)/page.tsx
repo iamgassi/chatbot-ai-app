@@ -16,7 +16,7 @@ export default function Home() {
       <Link
         href="/create-chatbot"
       >
-        <Button className="bg-[#72aff0]">Let's get stated by creating your first chatbot</Button>
+        <Button className="bg-[#72aff0]">Let&apos;s get stated by creating your first chatbot</Button>
       </Link>
     </main>
   );

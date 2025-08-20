@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { use } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,7 +7,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -18,11 +17,11 @@ import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "types/types";
 import { GET_CHATBOT_BY_ID } from "graphql/queries";
 import Avatar from "@/components/Avatar";
 
-const Chatbot = ({ params: { id } }: { params: { id: string } }) => {
+const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = use(params);
   const [open, setOpen] = React.useState(true);
   const [formData, setFormData] = React.useState({ username : '', email : '' });
   const [loading, setLoading] = React.useState(false);
-  const [chatId, setChatId] = React.useState(null);
 
   const { data: chatbotData } = useQuery<GetChatbotByIdResponse, GetChatbotByIdVariables>(
      GET_CHATBOT_BY_ID,
@@ -45,9 +44,9 @@ const Chatbot = ({ params: { id } }: { params: { id: string } }) => {
     e.preventDefault()
     setLoading(true);
     try {
-      const chatId = await startNewChat(formData.username, formData.email, Number(id))
+      await startNewChat(formData.username, formData.email, Number(id))
       setLoading(false);
-      setChatId(chatId)
+      // chatId is available here if needed
       setOpen(false);
     } catch (error) {
       console.log(error)
