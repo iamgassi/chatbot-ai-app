@@ -13,15 +13,18 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import startNewChat from "@/lib/startNewChat";
 import { useQuery } from "@apollo/client";
-import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "types/types";
-import { GET_CHATBOT_BY_ID } from "graphql/queries";
+import { GetChatbotByIdResponse, GetChatbotByIdVariables, GetMessagesBySessionIdResponse, GetMessagesBySessionIdVariables, Message } from "types/types";
+import { GET_CHATBOT_BY_ID, GET_MESSAGES_BY_CHAT_SESSION_ID } from "graphql/queries";
 import Avatar from "@/components/Avatar";
+import Messages from "@/components/Messages";
 
 const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const [open, setOpen] = React.useState(true);
   const [formData, setFormData] = React.useState({ username : '', email : '' });
   const [loading, setLoading] = React.useState(false);
+  const [chatId, setChatId] = React.useState('');
+  const [messages, setMessages] = React.useState<Message[]>([]);
 
   const { data: chatbotData } = useQuery<GetChatbotByIdResponse, GetChatbotByIdVariables>(
      GET_CHATBOT_BY_ID,
@@ -30,9 +33,18 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
      }
   );
 
-  React.useEffect(()=>{
+  const { loading: loadingQuery, error, data } = useQuery<GetMessagesBySessionIdResponse, GetMessagesBySessionIdVariables>(
+     GET_MESSAGES_BY_CHAT_SESSION_ID, { 
+      variables: { chat_session_id : chatId },
+      skip: !chatId
+    }
+  );
 
-  },[chatbotData])
+  React.useEffect(()=>{
+    if(data){
+      setMessages(data.chat_sessions.messages)
+    }
+  },[data])
 
   const handleChange = (e: React.ChangeEvent<HTMLElement>) => {
     const { name, value } = e.target as HTMLInputElement;
@@ -40,13 +52,12 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    debugger
     e.preventDefault()
     setLoading(true);
     try {
-      await startNewChat(formData.username, formData.email, Number(id))
+      const chatId = await startNewChat(formData.username, formData.email, Number(id))
       setLoading(false);
-      // chatId is available here if needed
+      setChatId(chatId);
       setOpen(false);
     } catch (error) {
       console.log(error)
@@ -57,7 +68,6 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <div className="flex w-full bg-gray-100">
       <Dialog open={open} onOpenChange={setOpen}>
-        {/* <DialogTrigger>Open</DialogTrigger> */}
         <DialogContent className="sm:max-w-[425px]">
           <form onSubmit={handleSubmit}>
             <DialogHeader>
@@ -87,14 +97,20 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
         </DialogContent>
       </Dialog>
 
-      <div className="">
-        <div>
-          <Avatar seed={chatbotData?.chatbots.name} className="w-20 h-20"/>
-          <div>
-            <h1>{chatbotData?.chatbots.name}</h1>
-            <p>Typically replies instantly</p>
-          </div>
-        </div>
+      <div className="flex flex-col w-full max-w-3xl mx-auto bg-white md:rounded-t-lg shadow-2xl md:mt-10">
+        {chatbotData && (
+          <>
+            <div className="pb-4 border-b sticky top-0 z-50 bg-[#4d7bfb] py-5 px-10 text-white md:rounded-t-lg flex items-center space-x-5">
+              <Avatar seed={chatbotData?.chatbots.name} className="bg-white w-12 h-12 rounded-full"/>
+              <div>
+                <h1 className="trucate text-lg">{chatbotData?.chatbots.name}</h1>
+                <p>⚡Typically replies instantly</p>
+              </div>
+            </div>
+            <Messages chatbotName={chatbotData?.chatbots.name!} messages={messages}></Messages>
+          </>
+        )
+        }
       </div>
     </div>
   );

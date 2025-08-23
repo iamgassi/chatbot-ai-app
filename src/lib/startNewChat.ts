@@ -1,7 +1,7 @@
 import client from "graphql/apolloClient";
 import { INSERT_CHAT_SESSION, INSERT_GUEST, INSERT_MESSAGE } from "graphql/mutations";
 
-async function startNewChat(
+async function  startNewChat(
     guestName: string,
     guestEmail: string,
     chatbotId: number
@@ -12,7 +12,6 @@ async function startNewChat(
             mutation: INSERT_GUEST,
             variables: {name: guestName, email: guestEmail}
         })
-        console.log(guestResult)
         const guestId = guestResult.data.insertGuests.id
 
         // new chat session

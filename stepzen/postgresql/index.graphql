@@ -281,7 +281,6 @@ type Mutation {
       configuration: "postgresql_config"
     )
   insertChat_sessions(
-    created_at: DateTime!
     guest_id: Int
     chatbot_id: Int
   ): Chat_sessions
@@ -438,7 +437,6 @@ type Mutation {
     chat_session_id: Int
     content: String!
     sender: String!
-    created_at: DateTime!
   ): Messages
     @dbquery(
       type: "postgresql"
