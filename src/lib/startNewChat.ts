@@ -19,7 +19,7 @@ async function  startNewChat(
             mutation: INSERT_CHAT_SESSION,
             variables: { guest_id: guestId, chatbot_id: chatbotId } 
         })
-        const chatSessionId = chatSessionResult.data.insertChat_sessions.id
+        const chatSessionId: string = chatSessionResult.data.insertChat_sessions.id
 
         // insert initial message
         await client.mutate({

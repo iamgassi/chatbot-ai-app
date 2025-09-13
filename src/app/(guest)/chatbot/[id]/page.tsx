@@ -17,8 +17,18 @@ import { GetChatbotByIdResponse, GetChatbotByIdVariables, GetMessagesBySessionId
 import { GET_CHATBOT_BY_ID, GET_MESSAGES_BY_CHAT_SESSION_ID } from "graphql/queries";
 import Avatar from "@/components/Avatar";
 import Messages from "@/components/Messages";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { set, z } from "zod"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
+const formSchema = z.object({
+  message: z.string().min(2, {
+    message: "Message must be at least 2 characters.",
+  }),
+})
 const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
+
   const { id } = use(params);
   const [open, setOpen] = React.useState(true);
   const [formData, setFormData] = React.useState({ username : '', email : '' });
@@ -38,7 +48,14 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
       variables: { chat_session_id : chatId },
       skip: !chatId
     }
-  );
+  );  
+  
+  const form = useForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        message: "",
+      },
+  })
 
   React.useEffect(()=>{
     if(data){
@@ -63,6 +80,73 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
       console.log(error)
       setLoading(false);
     }
+  }  
+  
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+      setLoading(true);
+      const { message : userMessage } = values;
+      console.log(userMessage)
+      form.reset();
+      if(!formData.username || !formData.email){
+        setLoading(false);
+        setOpen(true);
+        return;
+      }
+
+      if(!userMessage){
+        setLoading(false);
+        return;
+      }
+      console.log(userMessage)
+
+      const userMessageObj: Message = {
+        id: Date.now(),
+        sender: "user",
+        content: userMessage,
+        created_at: new Date().toISOString(),
+        chat_session_id: chatId,
+      }
+
+      const loadingMessageObj: Message = {
+        id: Date.now() + 1,
+        sender: "ai",
+        content: "Thinking...",
+        created_at: new Date().toISOString(),
+        chat_session_id: chatId,
+      }
+
+      setMessages((prevMessages) => [...prevMessages, userMessageObj, loadingMessageObj]);
+
+      try {
+        const response = await fetch("/api/send-message", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            content: userMessage,
+            chat_session_id: chatId,
+            chatbot_id: Number(id),
+            name : formData.username,
+            email : formData.email
+          }),
+        });
+
+        const result = await response.json();
+        setMessages((prevMessages) => 
+          prevMessages.map((msg) =>
+            msg.id === loadingMessageObj.id ? { ...msg, content: result.content, id : result.id } : msg
+          )
+        )
+      } catch (error) {
+        console.log(error)
+        setMessages((prevMessages) => 
+          prevMessages.map((msg) =>
+            msg.id === loadingMessageObj.id ? { ...msg, content: "Failed to get response from AI" } : msg
+          )
+        )
+      }
+
   }
 
   return (
@@ -100,7 +184,7 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
       <div className="flex flex-col w-full max-w-3xl mx-auto bg-white md:rounded-t-lg shadow-2xl md:mt-10">
         {chatbotData && (
           <>
-            <div className="pb-4 border-b sticky top-0 z-50 bg-[#4d7bfb] py-5 px-10 text-white md:rounded-t-lg flex items-center space-x-5">
+            <div className="pb-4 border-b sticky top-0 z-50 bg-blue-500 py-5 px-10 text-white md:rounded-t-lg flex items-center space-x-5">
               <Avatar seed={chatbotData?.chatbots.name} className="bg-white w-12 h-12 rounded-full"/>
               <div>
                 <h1 className="trucate text-lg">{chatbotData?.chatbots.name}</h1>
@@ -108,6 +192,23 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
               </div>
             </div>
             <Messages chatbotName={chatbotData?.chatbots.name!} messages={messages}></Messages>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-start sticky bottom-0 z-50 border-t space-x-4 drop-shadow-2xl p-4 bg-gray-100 rounded-md">
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormControl>
+                        <Input placeholder="Type a message..." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button className="h-full" type="submit">Submit</Button>
+              </form>
+            </Form>
           </>
         )
         }

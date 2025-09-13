@@ -31,9 +31,9 @@ export interface ChatSession {
 
 export interface Message {
     id: number;
-    chat_session_id: number;
+    chat_session_id: string;
     sender: 'ai' | 'user';
-    created_at: Date;
+    created_at: string;
     content: string;
 }
 
