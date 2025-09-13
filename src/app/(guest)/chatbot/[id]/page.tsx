@@ -19,8 +19,8 @@ import Avatar from "@/components/Avatar";
 import Messages from "@/components/Messages";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { set, z } from "zod"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { z } from "zod"
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 const formSchema = z.object({
   message: z.string().min(2, {
@@ -43,7 +43,7 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
      }
   );
 
-  const { loading: loadingQuery, error, data } = useQuery<GetMessagesBySessionIdResponse, GetMessagesBySessionIdVariables>(
+  const { data } = useQuery<GetMessagesBySessionIdResponse, GetMessagesBySessionIdVariables>(
      GET_MESSAGES_BY_CHAT_SESSION_ID, { 
       variables: { chat_session_id : chatId },
       skip: !chatId

@@ -7,7 +7,7 @@ import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "types/types";
 
 export async function POST(request: NextRequest) {
     try {
-        const { content, chat_session_id, chatbot_id, name, email } = await request.json();
+        const { content, chat_session_id, chatbot_id, name } = await request.json();
         // fetch chatbot characteristics
         const { data } = await serverClient.query<GetChatbotByIdResponse, GetChatbotByIdVariables>({
             query: GET_CHATBOT_BY_ID,
