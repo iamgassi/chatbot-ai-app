@@ -72,7 +72,7 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
     e.preventDefault()
     setLoading(true);
     try {
-      const chatId = await startNewChat(formData.username, formData.email, Number(id))
+      const chatId = await startNewChat(formData.username, formData.email, Number(id)) || '';
       setLoading(false);
       setChatId(chatId);
       setOpen(false);
