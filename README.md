@@ -27,24 +27,26 @@ It also demonstrates integration with **StepZen GraphQL** APIs and a modular fol
 
 ## 📁 Folder Structure
 
+```
 chatbot-ai-app/
 │
-├── graphql/ # GraphQL queries and schema definitions
-├── public/ # Static assets
-├── src/ # Application source code
-│ ├── app/ # Next.js app router pages
-│ ├── components/ # Reusable React components
-│ ├── lib/ # Utility and helper functions
-│ └── styles/ # Global styles
+├── graphql/           # GraphQL queries and schema definitions
+├── public/            # Static assets
+├── src/               # Application source code
+│   ├── app/           # Next.js app router pages
+│   ├── components/    # Reusable React components
+│   ├── lib/           # Utility and helper functions
+│   └── styles/        # Global styles
 │
-├── stepzen/ # StepZen GraphQL endpoint configuration
-├── types/ # TypeScript types and interfaces
+├── stepzen/           # StepZen GraphQL endpoint configuration
+├── types/             # TypeScript types and interfaces
 │
-├── seed.sql # Database seed script
-├── next.config.ts # Next.js configuration
-├── package.json # Dependencies and scripts
-├── tsconfig.json # TypeScript configuration
-└── README.md # Project documentation
+├── seed.sql           # Database seed script
+├── next.config.ts     # Next.js configuration
+├── package.json       # Dependencies and scripts
+├── tsconfig.json      # TypeScript configuration
+└── README.md          # Project documentation
+```
 
 ---
 
@@ -56,10 +58,15 @@ Clone the repository and install dependencies:
 git clone https://github.com/iamgassi/chatbot-ai-app.git
 cd chatbot-ai-app
 npm install
-🧑‍💻 Running Locally
+```
+
+---
+
+## 🧑‍💻 Running Locally
+
 Start the development server:
 
-bash
+```bash
 npm run dev
 # or
 yarn dev
@@ -67,52 +74,58 @@ yarn dev
 pnpm dev
 # or
 bun dev
-Then open your browser at:
-👉 http://localhost:3000
+```
 
-🌐 Deployment
-This project is fully optimized for Vercel.
+Then open your browser at:  
+👉 [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🌐 Deployment
+
+This project is fully optimized for **Vercel**.  
 To deploy:
 
-Push your code to a GitHub repository.
-
-Go to Vercel.
-
-Import your repo → Configure project → Deploy.
+1. Push your code to a GitHub repository.  
+2. Go to [Vercel](https://vercel.com/).  
+3. Import your repo → Configure project → Deploy.
 
 Your app will be live in seconds 🚀
 
-🔮 Possible Improvements
+---
+
+## 🔮 Possible Improvements
+
 Here are some next steps to extend this project:
 
-🔐 Add JWT or OAuth authentication (Google, GitHub, etc.)
+- 🔐 Add **JWT or OAuth authentication** (Google, GitHub, etc.)
+- 💬 Implement chat persistence and history
+- ⚙️ Replace StepZen with a custom **Node.js + Express GraphQL server**
+- 🧩 Integrate **Redux Toolkit** or **React Query** for state management
+- 🌈 Improve UI with advanced **Tailwind** components or **shadcn/ui**
+- ☁️ Use **MongoDB Atlas** or **Supabase** for real data storage
 
-💬 Implement chat persistence and history
+---
 
-⚙️ Replace StepZen with a custom Node.js + Express GraphQL server
+## 🧱 Example Use Case
 
-🧩 Integrate Redux Toolkit or React Query for state management
-
-🌈 Improve UI with advanced Tailwind components or shadcn/ui
-
-☁️ Use MongoDB Atlas or Supabase for real data storage
-
-🧱 Example Use Case
 This project can serve as a:
+- Portfolio project to showcase full-stack skills  
+- Starting point for an AI chat interface  
+- Base for GraphQL or Next.js learning project  
+- Template for integrating third-party AI APIs (like OpenAI, Gemini, etc.)
 
-Portfolio project to showcase full-stack skills
+---
 
-Starting point for an AI chat interface
+## 📜 License
 
-Base for GraphQL or Next.js learning project
+This project is open source under the [MIT License](LICENSE).
 
-Template for integrating third-party AI APIs (like OpenAI, Gemini, etc.)
+---
 
-📜 License
-This project is open source under the MIT License.
+## 💡 Author
 
-💡 Author
-Gaurav Gassi
-Full Stack MERN Developer
-GitHub Profile : https://github.com/iamgassi
-(Open to roles in Gurugram, Noida, or Remote)
+**Gaurav Gassi**  
+Full Stack MERN Developer  
+[GitHub Profile](https://github.com/iamgassi)  
+*(Open to roles in Gurugram, Noida, or Remote)*
