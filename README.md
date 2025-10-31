@@ -1,8 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 Chatbot AI App
 
-## Getting Started
+A modern **Next.js + TypeScript** chatbot application integrating **GraphQL** and **StepZen**, designed for scalability, clean architecture, and AI-driven conversations.
 
-First, run the development server:
+---
+
+## 🚀 Overview
+
+This project serves as a foundation for building an AI-powered chatbot interface using **Next.js (App Router)** and **TypeScript**.  
+It also demonstrates integration with **StepZen GraphQL** APIs and a modular folder structure that promotes scalability.
+
+---
+
+## 🧠 Tech Stack
+
+| Technology | Purpose |
+|-------------|----------|
+| **Next.js 14+** | React framework for SSR and routing |
+| **TypeScript** | Strong typing for better maintainability |
+| **GraphQL** | API query language for fetching structured data |
+| **StepZen** | Cloud GraphQL layer to connect data sources |
+| **Tailwind CSS** | Utility-first CSS framework |
+| **PostgreSQL (PLpgSQL)** | Backend database (used in seed.sql) |
+| **Vercel** | Deployment platform |
+
+---
+
+## 📁 Folder Structure
+
+```
+chatbot-ai-app/
+│
+├── graphql/           # GraphQL queries and schema definitions
+├── public/            # Static assets
+├── src/               # Application source code
+│   ├── app/           # Next.js app router pages
+│   ├── components/    # Reusable React components
+│   ├── lib/           # Utility and helper functions
+│   └── styles/        # Global styles
+│
+├── stepzen/           # StepZen GraphQL endpoint configuration
+├── types/             # TypeScript types and interfaces
+│
+├── seed.sql           # Database seed script
+├── next.config.ts     # Next.js configuration
+├── package.json       # Dependencies and scripts
+├── tsconfig.json      # TypeScript configuration
+└── README.md          # Project documentation
+```
+
+---
+
+## ⚙️ Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/iamgassi/chatbot-ai-app.git
+cd chatbot-ai-app
+npm install
+```
+
+---
+
+## 🧑‍💻 Running Locally
+
+Start the development server:
 
 ```bash
 npm run dev
@@ -14,23 +76,56 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open your browser at:  
+👉 [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🌐 Deployment
 
-## Learn More
+This project is fully optimized for **Vercel**.  
+To deploy:
 
-To learn more about Next.js, take a look at the following resources:
+1. Push your code to a GitHub repository.  
+2. Go to [Vercel](https://vercel.com/).  
+3. Import your repo → Configure project → Deploy.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Your app will be live in seconds 🚀
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🔮 Possible Improvements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Here are some next steps to extend this project:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 🔐 Add **JWT or OAuth authentication** (Google, GitHub, etc.)
+- 💬 Implement chat persistence and history
+- ⚙️ Replace StepZen with a custom **Node.js + Express GraphQL server**
+- 🧩 Integrate **Redux Toolkit** or **React Query** for state management
+- 🌈 Improve UI with advanced **Tailwind** components or **shadcn/ui**
+- ☁️ Use **MongoDB Atlas** or **Supabase** for real data storage
+
+---
+
+## 🧱 Example Use Case
+
+This project can serve as a:
+- Portfolio project to showcase full-stack skills  
+- Starting point for an AI chat interface  
+- Base for GraphQL or Next.js learning project  
+- Template for integrating third-party AI APIs (like OpenAI, Gemini, etc.)
+
+---
+
+## 📜 License
+
+This project is open source under the [MIT License](LICENSE).
+
+---
+
+## 💡 Author
+
+**Gaurav Gassi**  
+Full Stack MERN Developer  
+[GitHub Profile](https://github.com/iamgassi)  
+*(Open to roles in Gurugram, Noida, or Remote)*
