@@ -31,7 +31,6 @@ async function  startNewChat(
             }
         })
 
-        console.log('Successfull')
         return chatSessionId;
     } catch (error) {
         console.log("startNewChat::",error)

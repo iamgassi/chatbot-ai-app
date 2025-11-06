@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import { glass } from "@dicebear/collection";
 import { createAvatar } from "@dicebear/core";

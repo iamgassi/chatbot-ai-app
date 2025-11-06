@@ -1,3 +1,5 @@
+'use client';
+
 import { ChatbotCharacteristics } from "types/types";
 import { OctagonX } from "lucide-react";
 import { useMutation } from "@apollo/client";

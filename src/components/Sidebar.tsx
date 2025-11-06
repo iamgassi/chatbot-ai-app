@@ -1,3 +1,5 @@
+'use client';
+
 import { BotMessageSquare, PencilLineIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
 

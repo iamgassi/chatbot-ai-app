@@ -1,4 +1,5 @@
 "use client";
+
 import React, { use } from "react";
 import {
   Dialog,
@@ -85,7 +86,6 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
       setLoading(true);
       const { message : userMessage } = values;
-      console.log(userMessage)
       form.reset();
       if(!formData.username || !formData.email){
         setLoading(false);
@@ -97,7 +97,6 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
         setLoading(false);
         return;
       }
-      console.log(userMessage)
 
       const userMessageObj: Message = {
         id: Date.now(),
@@ -191,7 +190,7 @@ const Chatbot = ({ params }: { params: Promise<{ id: string }> }) => {
                 <p>⚡Typically replies instantly</p>
               </div>
             </div>
-            <Messages chatbotName={chatbotData?.chatbots.name!} messages={messages}></Messages>
+            <Messages chatbotName={chatbotData?.chatbots.name ?? ''} messages={messages}></Messages>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-start sticky bottom-0 z-50 border-t space-x-4 drop-shadow-2xl p-4 bg-gray-100 rounded-md">
                 <FormField
